@@ -1,17 +1,17 @@
 {{define "content"}}
     <h1>
-        Yeni Post Ekle
+        Kayıt Düzenle
         <a href="/admin" class="btn btn-outline-primary float-right"><i class="fa fa-arrow-left"></i>Geri Dön</a>
     </h1>
     <hr>
     <form action="/admin/add"method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label>Blog Başlığı</label>
-            <input type="text" name="blog-title" class="form-control">
+            <input type="text" name="blog-title" class="form-control" value="{{.Post.Title}}">
         </div>
         <div class="form-group">
             <label>Blog Açıklaması</label>
-            <textarea name="blog-desc"cols="30" rows="2" class="form-control"></textarea>
+            <textarea name="blog-desc"cols="30" rows="2" class="form-control">{{.Post.Description}}</textarea>
         </div>
         <div class="form-group">
             <label>Kategori</label>
@@ -25,7 +25,7 @@
         </div>
         <div class="form-group">
             <label>Blog İçeriği</label>
-            <textarea name="blog-content"cols="30" id="summernote" rows="2" class="form-control"></textarea>
+            <textarea name="blog-content"cols="30" id="summernote" rows="2" class="form-control">{{.Post.Content}}</textarea>
         </div>
         <button type="submit" class="btn btn-outline-success w-100 my-3">Kaydet</button>
     </form>
