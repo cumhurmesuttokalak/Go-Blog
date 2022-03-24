@@ -4,7 +4,7 @@
         <a href="/admin" class="btn btn-outline-primary float-right"><i class="fa fa-arrow-left"></i>Geri Dön</a>
     </h1>
     <hr>
-    <form action="/admin/add"method="post" enctype="multipart/form-data">
+    <form action="/admin/update/{{.Post.ID}}"method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label>Blog Başlığı</label>
             <input type="text" name="blog-title" class="form-control" value="{{.Post.Title}}">
@@ -20,14 +20,21 @@
             </select>
         </div>
         <div class="form-group">
+            <img width="100px" height="150px" src="/{{.Post.Picture_url}}" class="my-2" id="current-picture">
             <label>Blog Görseli</label>
-            <input type="file" name="blog-picture" class="form-control-file">
+            <input type="file" name="blog-picture" class="form-control-file" id="file-upload">
+            <input type="hidden" name="is_selected" id="is_selected" value="0">
         </div>
         <div class="form-group">
             <label>Blog İçeriği</label>
             <textarea name="blog-content"cols="30" id="summernote" rows="2" class="form-control">{{.Post.Content}}</textarea>
         </div>
-        <button type="submit" class="btn btn-outline-success w-100 my-3">Kaydet</button>
+        <button type="submit" class="btn btn-outline-success w-100 my-3">Güncelle</button>
     </form>
-
+<script>
+    document.getElementById("file-upload").addEventListener("change",function (){
+        document.getElementById("is_selected").setAttribute("value","1")
+        document.getElementById("current-picture").style.display="none"
+    })
+</script>
 {{end}}
