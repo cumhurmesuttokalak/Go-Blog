@@ -2,13 +2,14 @@ package config
 
 import (
 	admin "Go-Blog/admin/controllers"
+	site "Go-Blog/site/controllers"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 )
 
 func Routes() *httprouter.Router {
 	r := httprouter.New()
-	//ADMİN
+	//ADMIN
 	//Blog Posts
 	r.GET("/admin", admin.Dashboard{}.Index)
 	r.GET("/admin/yeni-ekle", admin.Dashboard{}.NewItem)
@@ -17,7 +18,7 @@ func Routes() *httprouter.Router {
 	r.GET("/admin/edit/:id", admin.Dashboard{}.Edit)
 	r.POST("/admin/update/:id", admin.Dashboard{}.Update)
 
-	//Blog Categories
+	//Categories
 	r.GET("/admin/kategoriler", admin.Categories{}.Index)
 	r.POST("/admin/kategoriler/add", admin.Categories{}.Add)
 	r.GET("/admin/kategoriler/delete/:id", admin.Categories{}.Delete)
@@ -27,8 +28,14 @@ func Routes() *httprouter.Router {
 	r.POST("/admin/do_login", admin.Userops{}.Login)
 	r.GET("/admin/logout", admin.Userops{}.Logout)
 
-	//SERVE FİLES
+	//SITE
+	//Homepage
+	r.GET("/", site.Homepage{}.Index)
+	r.GET("/yazilar/:slug", site.Homepage{}.Detail)
+
+	// SERVE FILES
 	r.ServeFiles("/admin/assets/*filepath", http.Dir("admin/assets"))
+	r.ServeFiles("/assets/*filepath", http.Dir("site/assets"))
 	r.ServeFiles("/uploads/*filepath", http.Dir("uploads"))
 	return r
 }

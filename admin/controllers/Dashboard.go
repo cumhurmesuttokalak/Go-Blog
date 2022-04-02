@@ -39,7 +39,9 @@ func (dashboard Dashboard) NewItem(w http.ResponseWriter, r *http.Request, param
 		fmt.Println(err)
 		return
 	}
-	view.ExecuteTemplate(w, "index", nil)
+	data := make(map[string]interface{})
+	data["Categories"] = models.Category{}.GetAll()
+	view.ExecuteTemplate(w, "index", data)
 }
 func (dashboard Dashboard) Add(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	if !helpers.CheckUser(w, r) {
@@ -101,6 +103,7 @@ func (dashboard Dashboard) Edit(w http.ResponseWriter, r *http.Request, params h
 	}
 	data := make(map[string]interface{})
 	data["Post"] = models.Post{}.Get(params.ByName("id"))
+	data["Categories"] = models.Category{}.GetAll()
 	view.ExecuteTemplate(w, "index", data)
 }
 func (dashboard Dashboard) Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {

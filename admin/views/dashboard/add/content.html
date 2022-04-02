@@ -16,7 +16,9 @@
         <div class="form-group">
             <label>Kategori</label>
             <select name="blog-category"class="form-control">
-                <option value="1">Teknoloji</option>
+                {{range $index,$value := .Categories}}
+                <option value="{{$value.ID}}">{{$value.Title}}</option>
+                {{end}}
             </select>
         </div>
         <div class="form-group">
